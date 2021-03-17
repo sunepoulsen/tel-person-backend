@@ -1,0 +1,6 @@
+rootProject.name = 'tel-person-backend'
+
+include 'tel-person-backend-service'
+include 'tel-person-component-tests'
+include 'tel-person-stress-tests'
+

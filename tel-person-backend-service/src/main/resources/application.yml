@@ -1,0 +1,18 @@
+# ===================================================================
+#                   Swagger configuration
+# ===================================================================
+
+swagger:
+  title: 'Person'
+  description: 'Person Service'
+  contact:
+    name: 'Sune Thomas Poulsen'
+    url: ''
+    email: 'sunepoulsen@gmail.com'
+  license: 'GNU General Public License 3.0'
+  licenseUrl: 'https://github.com/springfox/springfox/blob/master/LICENSE'
+  version: '3.0'
+
+logging:
+  level:
+    dk.sunepoulsen.tech.enterprise.labs: INFO
