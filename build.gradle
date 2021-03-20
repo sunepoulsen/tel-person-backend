@@ -44,3 +44,19 @@ subprojects {
     }
 
 }
+
+project('tel-person-component-tests') {
+    test {
+        onlyIf {
+            project.hasProperty("component-tests")
+        }
+    }
+}
+
+project('tel-person-stress-tests') {
+    test {
+        onlyIf {
+            project.hasProperty("stress-tests")
+        }
+    }
+}
