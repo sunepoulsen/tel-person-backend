@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+    implementation project(':tel-person-backend-client')
+
     // Tech Enterprise Labs - Core
     implementation "${project.group.toString()}:tel-component-tests-core:${project.property('tel-component-tests.version')}"
     implementation "${project.group.toString()}:tel-client-core:${project.property('tel-component-tests.version')}"
