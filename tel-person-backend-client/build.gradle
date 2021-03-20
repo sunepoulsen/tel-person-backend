@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    // Tech Enterprise Labs
+    api "dk.sunepoulsen.tech-enterprise-labs:tel-client-core:${project.property('tel-client-core.version')}"
+
+    // Hibernate Validation
+    api "org.hibernate.validator:hibernate-validator:${project.property('hibernate-validator.version')}"
+    api "org.hibernate.validator:hibernate-validator-annotation-processor:${project.property('hibernate-validator.version')}"
+
+    // Javax EL - Required by Hibernate Validation
+    api "javax.el:javax.el-api:${project.property('javax.el-api.version')}"
+    api "org.glassfish.web:javax.el:${project.property('javax.el.version')}"
+}
