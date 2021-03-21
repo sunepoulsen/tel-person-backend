@@ -1,5 +1,6 @@
 package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persistence;
 
+import dk.sunepoulsen.tech.enterprise.labs.core.service.domain.logic.ResourceViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +37,7 @@ public class PersonPersistence {
             throw new IllegalArgumentException("Entity can not by null");
         }
         if( entity.getId() != null ) {
-            throw new IllegalArgumentException( "Can not create a person with a person id" );
+            throw new ResourceViolationException( "id", "id must be null" );
         }
 
         return repository.save( entity );

@@ -1,5 +1,6 @@
 package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persistence
 
+import dk.sunepoulsen.tech.enterprise.labs.core.service.domain.logic.ResourceViolationException
 import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.PersonSex
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -49,11 +50,11 @@ class PersonPersistenceSpec extends Specification {
             this.persistence.create(_value)
 
         then:
-            thrown(IllegalArgumentException)
+            thrown(_throws)
 
         where:
-            _value                    | _reason
-            null                      | 'null value'
-            new PersonEntity(id: 25L) | 'Id is not null'
+            _value                    | _throws | _reason
+            null                      | IllegalArgumentException | 'null value'
+            new PersonEntity(id: 25L) | ResourceViolationException | 'Id is not null'
     }
 }
