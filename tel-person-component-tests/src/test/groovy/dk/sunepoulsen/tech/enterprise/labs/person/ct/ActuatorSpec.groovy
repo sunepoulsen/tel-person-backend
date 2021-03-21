@@ -8,17 +8,18 @@ import java.net.http.HttpRequest
 
 class ActuatorSpec extends Specification {
 
+    private HttpHelper httpHelper
+
+    void setup() {
+        this.httpHelper = new HttpHelper(DeploymentSpockExtension.deployment)
+    }
+
     void "GET /actuator/health returns OK"() {
         given: 'Health service is available'
             DeploymentSpockExtension.deployment.waitForAvailable(DeploymentSpockExtension.CONTAINER_NAME)
 
         when: 'Call GET /actuator/health'
-            HttpHelper httpHelper = new HttpHelper(DeploymentSpockExtension.deployment)
-            HttpRequest httpRequest = httpHelper.newRequestBuilder(DeploymentSpockExtension.CONTAINER_NAME, '/actuator/health')
-                .GET()
-                .build()
-
-            HttpResponseVerificator verificator = httpHelper.sendRequest(httpRequest)
+            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, '/actuator/health')
 
         then: 'Response Code is 200'
             verificator.responseCode(200)
