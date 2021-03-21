@@ -7,7 +7,3 @@ spring:
     url: jdbc:postgresql://tel-persons-db:5432/persons
     username: persons
     password: jukilo90
-
-
-logging:
-  file: '/app/logs/service.log'
