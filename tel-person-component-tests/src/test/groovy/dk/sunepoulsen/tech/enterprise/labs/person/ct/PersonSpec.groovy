@@ -4,8 +4,8 @@ import com.google.common.net.MediaType
 import dk.sunepoulsen.tech.enterprise.labs.core.component.tests.http.HttpHelper
 import dk.sunepoulsen.tech.enterprise.labs.core.component.tests.verification.HttpResponseVerificator
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.utils.JsonUtils
-import dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client.model.Person
-import dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client.model.PersonSex
+import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person
+import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.PersonSex
 import spock.lang.Specification
 
 import java.net.http.HttpRequest

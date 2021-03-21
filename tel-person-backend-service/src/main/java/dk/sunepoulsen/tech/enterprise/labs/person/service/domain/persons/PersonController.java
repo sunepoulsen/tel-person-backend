@@ -1,7 +1,7 @@
 package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persons;
 
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.ServiceError;
-import dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client.model.Person;
+import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

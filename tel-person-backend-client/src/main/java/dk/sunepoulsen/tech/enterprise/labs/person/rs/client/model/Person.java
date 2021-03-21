@@ -1,4 +1,4 @@
-package dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client.model;
+package dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model;
 
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.BaseModel;
 import io.swagger.annotations.ApiModel;

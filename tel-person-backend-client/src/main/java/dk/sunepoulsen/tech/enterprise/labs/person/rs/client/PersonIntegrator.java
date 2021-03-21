@@ -1,8 +1,8 @@
-package dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client;
+package dk.sunepoulsen.tech.enterprise.labs.person.rs.client;
 
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.AbstractIntegrator;
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.TechEnterpriseLabsClient;
-import dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client.model.Person;
+import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person;
 import io.reactivex.Single;
 
 public class PersonIntegrator extends AbstractIntegrator {

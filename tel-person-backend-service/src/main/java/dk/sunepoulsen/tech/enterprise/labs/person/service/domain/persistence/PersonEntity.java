@@ -1,6 +1,6 @@
 package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persistence;
 
-import dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client.model.PersonSex;
+import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.PersonSex;
 import lombok.Data;
 
 import javax.persistence.Column;
