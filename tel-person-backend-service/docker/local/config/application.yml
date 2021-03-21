@@ -1,0 +1,8 @@
+# ===================================================================
+#                   Database configuration
+# ===================================================================
+
+spring:
+  datasource:
+    initialize: false
+    driver-class-name: org.postgresql.Driver

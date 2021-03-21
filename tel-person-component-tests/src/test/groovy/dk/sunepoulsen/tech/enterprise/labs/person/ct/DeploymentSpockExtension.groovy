@@ -8,4 +8,9 @@ class DeploymentSpockExtension extends DefaultDeploymentSpockExtension {
     DeploymentSpockExtension() {
         super('ct', [CONTAINER_NAME])
     }
+
+    @Override
+    void start() {
+        super.start()
+    }
 }

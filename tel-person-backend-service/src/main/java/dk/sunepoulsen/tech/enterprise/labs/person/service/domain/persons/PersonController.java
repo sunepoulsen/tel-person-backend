@@ -1,4 +1,4 @@
-package dk.sunepoulsen.tech.enterprise.labs.person.service.domain;
+package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persons;
 
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.ServiceError;
 import dk.sunepoulsen.tech.enterprise.labs.helloworld.rs.client.model.Person;
@@ -9,14 +9,15 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 @Api(value = "Persons")
-@RestController(value = "/persons")
+@Controller
+@RequestMapping("/persons")
 public class PersonController {
 
     @ApiOperation(value = "Create a new person", response = Person.class, produces = MediaType.APPLICATION_JSON_VALUE)

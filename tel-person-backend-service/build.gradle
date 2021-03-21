@@ -15,6 +15,18 @@ dependencies {
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Database
+    implementation "org.liquibase:liquibase-core:${project.property('liquibase-core.version')}"
+    implementation "org.postgresql:postgresql:${project.property('jdbc-postgresql-driver.version')}"
+
+    // Spring Tests
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.spockframework:spock-spring:${project.property('spock-core.version')}"
+
+    // Database Drivers for tests
+    testImplementation "com.h2database:h2:${project.property('jdbc-h2-driver.version')}"
 }
 
 tasks.build.dependsOn tasks.jibDockerBuild

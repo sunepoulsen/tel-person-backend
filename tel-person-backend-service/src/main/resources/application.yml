@@ -16,3 +16,9 @@ swagger:
 logging:
   level:
     dk.sunepoulsen.tech.enterprise.labs: INFO
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

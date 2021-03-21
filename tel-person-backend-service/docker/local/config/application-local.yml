@@ -1,0 +1,9 @@
+# ===================================================================
+#                   Database configuration
+# ===================================================================
+
+spring:
+  datasource:
+    url: jdbc:postgresql://tel-persons-db:5432/persons
+    username: persons
+    password: jukilo90
