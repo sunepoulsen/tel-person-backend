@@ -1,5 +1,6 @@
 package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persons;
 
+import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.PaginationResult;
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.ServiceError;
 import dk.sunepoulsen.tech.enterprise.labs.core.service.domain.logic.LogicException;
 import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person;
@@ -7,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,4 +43,16 @@ public class PersonController {
             throw ex.mapApiException();
         }
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET)
+    public PaginationResult<Person> getPersons(Pageable pageable) {
+        try {
+            return personLogic.findPersons(pageable);
+        }
+        catch (LogicException ex) {
+            throw ex.mapApiException();
+        }
+    }
+
 }

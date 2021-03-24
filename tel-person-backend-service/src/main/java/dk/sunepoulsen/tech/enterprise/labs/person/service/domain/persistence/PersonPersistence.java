@@ -2,6 +2,8 @@ package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persistence;
 
 import dk.sunepoulsen.tech.enterprise.labs.core.service.domain.logic.ResourceViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -41,5 +43,9 @@ public class PersonPersistence {
         }
 
         return repository.save( entity );
+    }
+
+    public Page<PersonEntity> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

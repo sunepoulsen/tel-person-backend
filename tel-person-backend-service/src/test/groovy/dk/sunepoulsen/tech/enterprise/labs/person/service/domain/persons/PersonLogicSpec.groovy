@@ -15,38 +15,18 @@ class PersonLogicSpec extends Specification {
 
     void setup() {
         this.personPersistence = Mock(PersonPersistence)
-        sut = new PersonLogic(personPersistence)
+        sut = new PersonLogic(personPersistence, new PersonTransformationService())
     }
 
     void "Create person: Successfully"() {
         given: 'A new person'
-            Person newPerson = new Person(
-                firstName: 'first name',
-                surnames: 'surnames',
-                lastSurname: 'last surname',
-                sex: PersonSex.MALE,
-                birthDate: LocalDate.now()
-            )
+            Person newPerson = PersonTestData.createPerson()
 
         when:
             Person result = sut.createPerson(newPerson)
 
         then:
-            result == new Person(
-                id: 1L,
-                firstName: 'first name',
-                surnames: 'surnames',
-                lastSurname: 'last surname',
-                sex: PersonSex.MALE,
-                birthDate: LocalDate.now()
-            )
-            1 * personPersistence.create(_) >> new PersonEntity(
-                id: 1L,
-                firstName: 'first name',
-                surnames: 'surnames',
-                lastSurname: 'last surname',
-                sex: PersonSex.MALE,
-                birthDate: LocalDate.now()
-            )
+            result == PersonTestData.createPerson(1L)
+            1 * personPersistence.create(PersonTestData.createPersonEntity()) >> PersonTestData.createPersonEntity(1L)
     }
 }

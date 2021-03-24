@@ -12,7 +12,10 @@ import spock.lang.Unroll
 import java.net.http.HttpRequest
 import java.time.LocalDate
 
-class PersonSpec extends Specification {
+/**
+ * Component test of <code>POST /persons</code>
+ */
+class CreatePersonSpec extends Specification {
 
     private HttpHelper httpHelper
 
