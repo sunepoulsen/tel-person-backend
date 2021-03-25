@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,22 @@ public class PersonController {
     public PaginationResult<Person> getPersons(Pageable pageable) {
         try {
             return personLogic.findPersons(pageable);
+        }
+        catch (LogicException ex) {
+            throw ex.mapApiException();
+        }
+    }
+
+    @ApiOperation(value = "Returns a person by its id", response = Person.class, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+        @ApiResponse(response = ServiceError.class, code = 400, message = "The person id is not an id"),
+        @ApiResponse(response = ServiceError.class, code = 404, message = "No person exists with the id")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.GET, value="/{id}")
+    public Person getPerson(@PathVariable("id") Long id) {
+        try {
+            return personLogic.getPerson(id);
         }
         catch (LogicException ex) {
             throw ex.mapApiException();

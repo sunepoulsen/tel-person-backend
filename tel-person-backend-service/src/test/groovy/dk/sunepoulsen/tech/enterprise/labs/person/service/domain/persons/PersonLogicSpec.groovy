@@ -1,12 +1,9 @@
 package dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persons
 
+import dk.sunepoulsen.tech.enterprise.labs.core.service.domain.logic.ResourceNotFoundException
 import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person
-import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.PersonSex
-import dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persistence.PersonEntity
 import dk.sunepoulsen.tech.enterprise.labs.person.service.domain.persistence.PersonPersistence
 import spock.lang.Specification
-
-import java.time.LocalDate
 
 class PersonLogicSpec extends Specification {
 
@@ -28,5 +25,23 @@ class PersonLogicSpec extends Specification {
         then:
             result == PersonTestData.createPerson(1L)
             1 * personPersistence.create(PersonTestData.createPersonEntity()) >> PersonTestData.createPersonEntity(1L)
+    }
+
+    void "Get person: Successfully"() {
+        when:
+            Person result = sut.getPerson(17L)
+
+        then:
+            result == PersonTestData.createPerson(17L)
+            1 * personPersistence.findPerson(17L) >> Optional.of(PersonTestData.createPersonEntity(17L))
+    }
+
+    void "Get person: Person not found"() {
+        when:
+            sut.getPerson(17L)
+
+        then:
+            thrown(ResourceNotFoundException)
+            1 * personPersistence.findPerson(17L) >> Optional.empty()
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * Component to access the database.
  * <p>
@@ -47,5 +49,9 @@ public class PersonPersistence {
 
     public Page<PersonEntity> findAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    public Optional<PersonEntity> findPerson(Long id) {
+        return repository.findById(id);
     }
 }

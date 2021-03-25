@@ -4,13 +4,12 @@ import com.google.common.net.MediaType
 import dk.sunepoulsen.tech.enterprise.labs.core.component.tests.http.HttpHelper
 import dk.sunepoulsen.tech.enterprise.labs.core.component.tests.verification.HttpResponseVerificator
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.ServiceError
+import dk.sunepoulsen.tech.enterprise.labs.person.ct.testdata.PersonTestData
 import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person
-import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.PersonSex
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import java.net.http.HttpRequest
-import java.time.LocalDate
 
 /**
  * Component test of <code>POST /persons</code>
@@ -28,13 +27,7 @@ class CreatePersonSpec extends Specification {
 
     void "Create new person - 200"() {
         given: 'a person body'
-            Person newPerson = new Person(
-                firstName: 'first name',
-                surnames: 'surnames',
-                lastSurname: 'last surname',
-                sex: PersonSex.MALE,
-                birthDate: LocalDate.now()
-            )
+            Person newPerson = PersonTestData.createValid()
 
         when: 'Call POST /persons'
             HttpResponseVerificator verificator = httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons', newPerson)
@@ -58,14 +51,7 @@ class CreatePersonSpec extends Specification {
 
     void "Create new person - 400 - Person with id"() {
         given: 'a person body'
-            Person newPerson = new Person(
-                id: 37L,
-                firstName: 'first name',
-                surnames: 'surnames',
-                lastSurname: 'last surname',
-                sex: PersonSex.MALE,
-                birthDate: LocalDate.now()
-            )
+            Person newPerson = PersonTestData.createValid(37L)
 
         when: 'Call POST /persons'
             HttpResponseVerificator verificator = httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons', newPerson)

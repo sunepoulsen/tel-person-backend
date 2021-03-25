@@ -5,6 +5,7 @@ import dk.sunepoulsen.tech.enterprise.labs.core.component.tests.http.HttpHelper
 import dk.sunepoulsen.tech.enterprise.labs.core.component.tests.verification.HttpResponseVerificator
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.PaginationResult
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.PaginationResultMetaData
+import dk.sunepoulsen.tech.enterprise.labs.person.ct.testdata.PersonTestData
 import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person
 import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.PersonSex
 import spock.lang.Specification
@@ -70,21 +71,12 @@ class GetPersonListSpec extends Specification {
                     totalItems: 10,
                     size: 2
                 )
-                results.size() == 2
-                with(results[0]) {
-                    firstName == 'Name 1'
-                    surnames == 'surnames'
-                    lastSurname == 'last surname'
-                    sex == PersonSex.MALE
-                    birthDate == LocalDate.now()
-                }
-                with(results[1]) {
-                    firstName == 'Name 2'
-                    surnames == 'surnames'
-                    lastSurname == 'last surname'
-                    sex == PersonSex.MALE
-                    birthDate == LocalDate.now()
-                }
+                results == [
+                    PersonTestData.createValid(results[0].id, 'Name 1'),
+                    PersonTestData.createValid(results[1].id, 'Name 2')
+                ]
+                results[0].id > 0
+                results[1].id > 0
             }
     }
 
@@ -122,13 +114,9 @@ class GetPersonListSpec extends Specification {
 
     private void createPersons(int i) {
         (1..i).each {
-            httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons', new Person(
-                firstName: 'Name ' + it,
-                surnames: 'surnames',
-                lastSurname: 'last surname',
-                sex: PersonSex.MALE,
-                birthDate: LocalDate.now()
-            ))
+            httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons',
+                PersonTestData.createValid(null, 'Name ' + it)
+            )
         }
     }
 
