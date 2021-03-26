@@ -40,4 +40,8 @@ public class PersonLogic {
 
         return personTransformationService.fromEntity(optionalEntity.get());
     }
+
+    public Person patchPerson(Long id, Person patchValue) {
+        return personTransformationService.fromEntity(personPersistence.patchPerson(id, personTransformationService.toEntity(patchValue)));
+    }
 }

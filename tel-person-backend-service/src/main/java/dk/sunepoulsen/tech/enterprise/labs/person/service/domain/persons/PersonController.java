@@ -72,4 +72,20 @@ public class PersonController {
         }
     }
 
+    @ApiOperation(value = "Returns a person by its id", response = Person.class, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+        @ApiResponse(response = ServiceError.class, code = 400, message = "The person id is not an id"),
+        @ApiResponse(response = ServiceError.class, code = 404, message = "No person exists with the id")
+    })
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(method = RequestMethod.PATCH, value="/{id}")
+    public Person patchPerson(@PathVariable("id") Long id, @RequestBody Person person) {
+        try {
+            return personLogic.patchPerson(id, person);
+        }
+        catch (LogicException ex) {
+            throw ex.mapApiException();
+        }
+    }
+
 }

@@ -62,4 +62,24 @@ class PersonControllerSpec extends Specification {
                 throw new ResourceNotFoundException("message")
             }
     }
+
+    void "PATCH /persons/{id} returns valid person"() {
+        when: 'Call PATCH /persons'
+            Person result = sut.patchPerson(17L, new Person())
+
+        then: 'Logic layer returns valid person'
+            result == PersonTestData.createPerson(17L)
+            1 * personLogic.patchPerson(17L, new Person()) >> PersonTestData.createPerson(17L)
+    }
+
+    void "PATCH /persons/{id} throws Api exception in case of a logic exception"() {
+        when: 'Call GET /persons'
+            sut.patchPerson(17L, new Person())
+
+        then: 'Logic layer throws logic exception'
+            thrown(ApiNotFoundException)
+            1 * personLogic.patchPerson(17L, new Person()) >> {
+                throw new ResourceNotFoundException("message")
+            }
+    }
 }
