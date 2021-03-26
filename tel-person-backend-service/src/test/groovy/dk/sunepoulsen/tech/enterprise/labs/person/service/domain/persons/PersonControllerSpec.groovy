@@ -82,4 +82,23 @@ class PersonControllerSpec extends Specification {
                 throw new ResourceNotFoundException("message")
             }
     }
+
+    void "DELETE /persons/{id}"() {
+        when: 'Call DELETE /persons'
+            sut.deletePerson(17L)
+
+        then: 'Logic layer deleted the person'
+            1 * personLogic.deletePerson(17L)
+    }
+
+    void "DELETE /persons/{id} throws Api exception in case of a logic exception"() {
+        when: 'Call DELETE /persons'
+            sut.deletePerson(17L)
+
+        then: 'Logic layer throws logic exception'
+            thrown(ApiNotFoundException)
+            1 * personLogic.deletePerson(17L) >> {
+                throw new ResourceNotFoundException("message")
+            }
+    }
 }

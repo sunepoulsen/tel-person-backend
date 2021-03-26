@@ -93,4 +93,29 @@ class PersonPersistenceSpec extends Specification {
             1L   | null               | IllegalArgumentException  | 'person is null'
             1L   | new PersonEntity() | ResourceNotFoundException | 'id does not exist'
     }
+
+    void "Delete person: Success"() {
+        given: 'A person exists in the database'
+            PersonEntity entity = this.persistence.create(PersonTestData.createPersonEntity())
+
+        when: 'The person is deleted'
+            this.persistence.deletePerson(entity.getId())
+
+        then: 'The person does not exist in the database'
+            this.repository.findById(entity.getId()).empty
+    }
+
+    @Unroll
+    void "Delete person: #_reason"() {
+        when:
+            this.persistence.deletePerson(_id)
+
+        then:
+            thrown(_throws)
+
+        where:
+            _id  | _throws                   | _reason
+            null | IllegalArgumentException  | 'id is null'
+            1L   | ResourceNotFoundException | 'id does not exist'
+    }
 }

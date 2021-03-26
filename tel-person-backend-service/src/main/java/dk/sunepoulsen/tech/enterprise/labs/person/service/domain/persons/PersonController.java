@@ -88,4 +88,20 @@ public class PersonController {
         }
     }
 
+    @ApiOperation(value = "Returns a person by its id", response = Person.class, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiResponses({
+        @ApiResponse(response = ServiceError.class, code = 400, message = "The person id is not an id"),
+        @ApiResponse(response = ServiceError.class, code = 404, message = "No person exists with the id")
+    })
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @RequestMapping(method = RequestMethod.DELETE, value="/{id}")
+    public void deletePerson(@PathVariable("id") Long id) {
+        try {
+            personLogic.deletePerson(id);
+        }
+        catch (LogicException ex) {
+            throw ex.mapApiException();
+        }
+    }
+
 }

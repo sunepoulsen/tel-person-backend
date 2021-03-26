@@ -79,4 +79,17 @@ public class PersonPersistence {
 
         return repository.save(currentEntity);
     }
+
+    public void deletePerson(Long id) {
+        if( id == null ) {
+            throw new IllegalArgumentException("Id can not by null");
+        }
+
+        Optional<PersonEntity> foundEntity = repository.findById(id);
+        if(foundEntity.isEmpty()) {
+            throw new ResourceNotFoundException("id", "Person does not exist");
+        }
+
+        repository.deleteById(id);
+    }
 }

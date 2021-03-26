@@ -44,4 +44,8 @@ public class PersonLogic {
     public Person patchPerson(Long id, Person patchValue) {
         return personTransformationService.fromEntity(personPersistence.patchPerson(id, personTransformationService.toEntity(patchValue)));
     }
+
+    public void deletePerson(Long id) {
+        this.personPersistence.deletePerson(id);
+    }
 }
