@@ -20,7 +20,7 @@ class PatchPersonSpec extends Specification {
 
     void "Get person that exists"() {
         given: 'A person was created successfully'
-            HttpResponseVerificator createPersonVerificator = httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons', PersonTestData.createValid())
+            HttpResponseVerificator createPersonVerificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.POST, '/persons', PersonTestData.createValid())
             createPersonVerificator.responseCode(201)
 
             Long personId = createPersonVerificator.bodyAsJsonOfType(Person).getId()
@@ -29,7 +29,7 @@ class PatchPersonSpec extends Specification {
             expected.firstName = 'new value'
 
         when: 'Call GET /persons/{id}'
-            HttpResponseVerificator verificator = httpHelper.createAndSendPatchWithJson(DeploymentSpockExtension.CONTAINER_NAME, "/persons/${personId}", new Person(
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.PATCH, "/persons/${personId}", new Person(
                 firstName: 'new value'
             ))
 
@@ -45,7 +45,7 @@ class PatchPersonSpec extends Specification {
 
     void "Patch person with bad id"() {
         when: 'Call PATCH /persons/bad-id'
-            HttpResponseVerificator verificator = httpHelper.createAndSendPatchWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons/bad-id', new Person(
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.PATCH, '/persons/bad-id', new Person(
                 firstName: 'new value'
             ))
 
@@ -58,7 +58,7 @@ class PatchPersonSpec extends Specification {
 
     void "Get person that does not exist"() {
         when: 'Call GET /persons/17'
-            HttpResponseVerificator verificator = httpHelper.createAndSendPatchWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons/17', new Person(
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.PATCH, '/persons/17', new Person(
                 firstName: 'new value'
             ))
 

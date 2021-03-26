@@ -19,7 +19,7 @@ class ActuatorSpec extends Specification {
             DeploymentSpockExtension.deployment.waitForAvailable(DeploymentSpockExtension.CONTAINER_NAME)
 
         when: 'Call GET /actuator/health'
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, '/actuator/health')
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, '/actuator/health')
 
         then: 'Response Code is 200'
             verificator.responseCode(200)

@@ -20,12 +20,12 @@ class GetPersonSpec extends Specification {
 
     void "Get person that exists"() {
         given: 'A person was created successfully'
-            HttpResponseVerificator createPersonVerificator = httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons', PersonTestData.createValid())
+            HttpResponseVerificator createPersonVerificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.POST, '/persons', PersonTestData.createValid())
             createPersonVerificator.responseCode(201)
 
         when: 'Call GET /persons/{id}'
             Long personId = createPersonVerificator.bodyAsJsonOfType(Person).getId()
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, "/persons/${personId}")
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, "/persons/${personId}")
 
         then: 'Response Code is 200'
             verificator.responseCode(200)
@@ -39,7 +39,7 @@ class GetPersonSpec extends Specification {
 
     void "Get person with bad id"() {
         when: 'Call GET /persons/bad-id'
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, '/persons/bad-id')
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, '/persons/bad-id')
 
         then: 'Response Code is 400'
             verificator.responseCode(400)
@@ -50,7 +50,7 @@ class GetPersonSpec extends Specification {
 
     void "Get person that does not exist"() {
         when: 'Call GET /persons/17'
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, '/persons/17')
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, '/persons/17')
 
         then: 'Response Code is 404'
             verificator.responseCode(404)

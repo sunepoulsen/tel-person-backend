@@ -7,11 +7,8 @@ import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.PaginationResult
 import dk.sunepoulsen.tech.enterprise.labs.core.rs.client.model.PaginationResultMetaData
 import dk.sunepoulsen.tech.enterprise.labs.person.ct.testdata.PersonTestData
 import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.Person
-import dk.sunepoulsen.tech.enterprise.labs.person.rs.client.model.PersonSex
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import java.time.LocalDate
 
 /**
  * Component test of <code>POST /persons</code>
@@ -29,7 +26,7 @@ class GetPersonListSpec extends Specification {
 
     void "Get empty list"() {
         when: 'Call GET /persons'
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, '/persons')
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, '/persons')
 
         then: 'Response Code is 200'
             verificator.responseCode(200)
@@ -54,7 +51,7 @@ class GetPersonListSpec extends Specification {
             createPersons(10)
 
         when: 'Call GET /persons'
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, '/persons?start=0&size=2')
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, '/persons?start=0&size=2')
 
         then: 'Response Code is 200'
             verificator.responseCode(200)
@@ -86,7 +83,7 @@ class GetPersonListSpec extends Specification {
             createPersons(_total)
 
         when: 'Call GET /persons'
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, "/persons?start=${_start}&size=${_size}")
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, "/persons?start=${_start}&size=${_size}")
 
         then: 'Response Code is 200'
             verificator.responseCode(200)
@@ -114,7 +111,7 @@ class GetPersonListSpec extends Specification {
 
     private void createPersons(int i) {
         (1..i).each {
-            httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons',
+            httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.POST, '/persons',
                 PersonTestData.createValid(null, 'Name ' + it)
             )
         }

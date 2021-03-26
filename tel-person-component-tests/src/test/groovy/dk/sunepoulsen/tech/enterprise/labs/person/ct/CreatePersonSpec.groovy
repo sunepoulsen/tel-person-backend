@@ -30,7 +30,7 @@ class CreatePersonSpec extends Specification {
             Person newPerson = PersonTestData.createValid()
 
         when: 'Call POST /persons'
-            HttpResponseVerificator verificator = httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons', newPerson)
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.POST, '/persons', newPerson)
 
         then: 'Response Code is 201'
             verificator.responseCode(201)
@@ -54,7 +54,7 @@ class CreatePersonSpec extends Specification {
             Person newPerson = PersonTestData.createValid(37L)
 
         when: 'Call POST /persons'
-            HttpResponseVerificator verificator = httpHelper.createAndSendPostWithJson(DeploymentSpockExtension.CONTAINER_NAME, '/persons', newPerson)
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.POST, '/persons', newPerson)
 
         then: 'Response Code is 400'
             verificator.responseCode(400)
@@ -72,8 +72,8 @@ class CreatePersonSpec extends Specification {
     @Unroll
     void "Create new person - #_responseCode - #_reason"() {
         when: 'Call POST /persons'
-            HttpResponseVerificator verificator = httpHelper.createAndSendPostWithBody(DeploymentSpockExtension.CONTAINER_NAME,
-                '/persons',
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME,
+                HttpHelper.POST, '/persons',
                 _contentType,
                 HttpRequest.BodyPublishers.ofString(_body)
             )

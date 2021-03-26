@@ -19,7 +19,7 @@ class SwaggerSpec extends Specification {
             DeploymentSpockExtension.deployment.waitForAvailable(DeploymentSpockExtension.CONTAINER_NAME)
 
         when: 'Call GET /swagger-ui.html'
-            HttpResponseVerificator verificator = httpHelper.createAndSendGet(DeploymentSpockExtension.CONTAINER_NAME, '/swagger-ui.html')
+            HttpResponseVerificator verificator = httpHelper.sendValidRequest(DeploymentSpockExtension.CONTAINER_NAME, HttpHelper.GET, '/swagger-ui.html')
 
         then: 'Response Code is 200'
             verificator.responseCode(200)
