@@ -19,5 +19,4 @@ services:
       - "8000"
     volumes:
       - "./config:/config"
-      - "./../../build/logs/tel-person-service:/app/logs"
 
