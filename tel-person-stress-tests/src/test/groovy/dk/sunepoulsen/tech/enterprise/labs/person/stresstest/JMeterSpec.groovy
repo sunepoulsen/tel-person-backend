@@ -43,6 +43,9 @@ class JMeterSpec extends Specification {
         and: 'Execute JMeter test'
             boolean jMeterResult = ProcessUtils.execute('jmeter -n -t ../../../src/test/resources/stress-test.jmx -p stress-test.properties -l results.jtl -e -o report-html', WORKING_DIR)
 
+            log.info("Wait 5 seconds before copying service log files")
+            Thread.sleep(5000)
+
         then: 'Verify stress test result'
             jMeterResult
     }
